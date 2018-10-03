@@ -1,0 +1,8 @@
+
+	# Reloj principal del sistema
+	
+	NET "CLK" LOC = "M6"; # Señal de reloj del sistema
+
+	# Salida externa donde se visualiza la señal de reloj dividida
+	
+	NET "CLK_1ms" LOC = "A13"; # Salida terminal 19
