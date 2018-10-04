@@ -44,15 +44,15 @@ begin
 		begin
 		if CLK'event and CLK='1' then
 			contador<=contador + '1';
-			if contador = 50000 then 
+			if contador = 25000 then 
 			-- el reloj tiene un periodo de 20 ns (50 MHz)								
-			-- se quiere una señal de reloj de 1kHz, con T=1ms
-				flag<=not flag 			
+			-- se quiere una seÃ±al de reloj de 1kHz, con T=1ms
+				flag<=not flag; 			
 				-- tras 50k cuentas => 20*10-9*50*10^3 =1000*10^-6 = 1ms de periodo
 				contador<=(others=>'0');
 			end if;
 		end if;
 		end process;
 			
-	SAL<=flag;
-end Behavioral;
+	CLK_1ms<=flag;
+end a_div_reloj;
