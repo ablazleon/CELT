@@ -60,10 +60,10 @@ if CLK_1ms'event and CLK_1ms = '1' then
 	else
 		salida_an <= '1000';
 		salida_s <= '11';
-	end if
+	end if;
 	
-end if
-end process
+end if;
+end process;
 
 AN <= salida_an;
 s <= salida_s;
