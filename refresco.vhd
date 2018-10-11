@@ -39,27 +39,28 @@ end refresco;
 
 architecture Behavioral of refresco is
 
-signal contador: STD_LOGIC_VECTOR(1 downto 0)
+signal contador: STD_LOGIC_VECTOR(1 downto 0):= "00";
 signal salida_s: STD_LOGIC_VECTOR(1 downto 0);
-signal salida_an: STD_LOGIC (3 downto 0);
+signal salida_an: STD_LOGIC_VECTOR (3 downto 0);
 
+
+begin
 process (CLK_1ms)
 begin
-
 if CLK_1ms'event and CLK_1ms = '1' then
 	contador <= contador + '1';
 	if contador = 0 then
-		salida_an <= '0001';
-		salida_s <= '00';
+		salida_an <= "0001";
+		salida_s <= "00";
 	elsif contador = 1 then
-		salida_an <= '0010';
-		salida_s <= '01';
+		salida_an <= "0010";
+		salida_s <= "01";
 	elsif contador = 2 then
-		salida_an <= '0100';
-		salida_s <= '10';
+		salida_an <= "0100";
+		salida_s <= "10";
 	else
-		salida_an <= '1000';
-		salida_s <= '11';
+		salida_an <= "1000";
+		salida_s <= "11";
 	end if;
 	
 end if;
