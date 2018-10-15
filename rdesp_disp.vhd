@@ -1,67 +1,161 @@
-----------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 -- Company: 
--- Engineer: 
+-- Engineer:
+--
+-- Create Date:   15:50:57 10/11/2018
+-- Design Name:   
+-- Module Name:   C:/Users/ablaz/Documents/Celt/Practica/regDesp8_tb.vhd
+-- Project Name:  Practica
+-- Target Device:  
+-- Tool versions:  
+-- Description:   
 -- 
--- Create Date:    11:47:54 10/10/2018 
--- Design Name: 
--- Module Name:    regDesp8 - Behavioral 
--- Project Name: 
--- Target Devices: 
--- Tool versions: 
--- Description: 
---
--- Dependencies: 
---
--- Revision: 
+-- VHDL Test Bench Created by ISE for module: regDesp8
+-- 
+-- Dependencies:
+-- 
+-- Revision:
 -- Revision 0.01 - File Created
--- Additional Comments: 
+-- Additional Comments:
 --
-----------------------------------------------------------------------------------
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-
+-- Notes: 
+-- This testbench has been automatically generated using types std_logic and
+-- std_logic_vector for the ports of the unit under test.  Xilinx recommends
+-- that these types always be used for the top-level I/O of a design in order
+-- to guarantee that the testbench will bind correctly to the post-implementation 
+-- simulation model.
+--------------------------------------------------------------------------------
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+ 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
+--USE ieee.numeric_std.ALL;
+ 
+ENTITY regDesp8_tb IS
+END regDesp8_tb;
+ 
+ARCHITECTURE behavior OF regDesp8_tb IS 
+ 
+    -- Component Declaration for the Unit Under Test (UUT)
+ 
+    COMPONENT regDesp8
+    PORT(
+         CLK : IN  std_logic;
+         E : IN  std_logic_vector(7 downto 0);
+         EN : IN  std_logic;
+         Q0 : OUT  std_logic_vector(7 downto 0);
+         Q1 : OUT  std_logic_vector(7 downto 0);
+         Q2 : OUT  std_logic_vector(7 downto 0);
+         Q3 : OUT  std_logic_vector(7 downto 0)
+        );
+    END COMPONENT;
+    
 
--- Uncomment the following library declaration if instantiating
--- any Xilinx primitives in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
+   --Inputs
+   signal CLK : std_logic := '0';
+   signal E : std_logic_vector(7 downto 0) := (others => '0');
+   signal EN : std_logic := '0';
 
-entity regDesp8 is
-    Port ( CLK : in   STD_LOGIC;                       -- entrada de reloj
-           E   : in   STD_LOGIC_VECTOR (7 downto 0);	 -- entrada de datos
-			  EN  : in   STD_LOGIC; 							 -- entrada de enable
-           Q0  : out  STD_LOGIC_VECTOR (7 downto 0);   -- salida Q0
-           Q1  : out  STD_LOGIC_VECTOR (7 downto 0);   -- salida Q1
-           Q2  : out  STD_LOGIC_VECTOR (7 downto 0);   -- salida Q2
-           Q3  : out  STD_LOGIC_VECTOR (7 downto 0));  -- salida Q3
-end regDesp8;
+ 	--Outputs
+   signal Q0 : std_logic_vector(7 downto 0);
+   signal Q1 : std_logic_vector(7 downto 0);
+   signal Q2 : std_logic_vector(7 downto 0);
+   signal Q3 : std_logic_vector(7 downto 0);
 
-architecture Behavioral of regDesp8 is
+   -- Clock period definitions
+   constant CLK_period : time := 10 ns;
+ 
+BEGIN
+ 
+	-- Instantiate the Unit Under Test (UUT)
+   uut: regDesp8 PORT MAP (
+          CLK => CLK,
+          E => E,
+          EN => EN,
+          Q0 => Q0,
+          Q1 => Q1,
+          Q2 => Q2,
+          Q3 => Q3
+        );
 
-signal QS0 : STD_LOGIC_VECTOR (7 downto 0); -- señal que almacena el valor de Q0
-signal QS1 : STD_LOGIC_VECTOR (7 downto 0); -- señal que almacena el valor de Q1
-signal QS2 : STD_LOGIC_VECTOR (7 downto 0); -- señal que almacena el valor de Q2
-signal QS3 : STD_LOGIC_VECTOR (7 downto 0); -- señal que almacena el valor de Q3
+   -- Clock process definitions
+   CLK_process :process
+   begin
+		CLK <= '0';
+		wait for CLK_period/2;
+		CLK <= '1';
+		wait for CLK_period/2;
+   end process;
+ 
 
-begin
+  -- Stimulus process
+   stim_proc: process
+   begin	
+		E <= "00000001";
+		EN <= '1';
+		
+      -- 1. Las salidas deben ser síncronas, es decir ir variando conforme cambie el reloj si En está activado
+		
+      wait for CLK_period;
+		E <= "00000010";
+		
+		wait for CLK_period;
+		E <= "00000100";
+		
+		wait for CLK_period;
+		E <= "00001000";
+		
+		wait for CLK_period;
+		E <= "00010000";
+		
+		wait for CLK_period;
+		E <= "00100000";
+		
+		wait for CLK_period;
+		E <= "01000000";
+		
+		wait for CLK_period;
+		E <= "10000000";
+		
+		-- 1. De forma que si se producen variaciones antes, no se reflejen.
+		
+		wait for CLK_period;
+		E <= "00000000";
+		
+		wait for CLK_period/2;
+		
+		E <= "11111111";
+		
+		-- 2. El enable es síncrono: si permanece activo, se ha comprobado que varía la señal de salida. Si es ianctivo, la señal debe permanecer.
+		
+		 wait for CLK_period;
+		E <= "00000001";
+		EN <= '0';
+		
+      wait for CLK_period;
+		E <= "00000010";
+		
+		wait for CLK_period;
+		E <= "00000100";
+		
+		wait for CLK_period;
+		E <= "00001000";
+		
+		wait for CLK_period;
+		E <= "00010000";
+		
+		wait for CLK_period;
+		E <= "00100000";
+		
+		wait for CLK_period;
+		E <= "01000000";
+		
+		wait for CLK_period;
+		E <= "10000000";
+		
+      wait;
+   end process;
+END;
 
-	process (CLK)
-	 begin
-		if (CLK'event and CLK='1') then   -- con cada flanco activo
-		  QS3<=QS2;		           -- se desplazan todas las salidas 
-		  QS2<=QS1;                       
-		  QS1<=QS0;
-		  QS0<=E;                         -- y se copia el valor de la entrada en Q0
-		end if;  
-	end process;
-
-  Q0<=QS0;                              -- actualización de las salidas
-  Q1<=QS1;
-  Q2<=QS2;
-  Q3<=QS3;
-
-end Behavioral;
 
