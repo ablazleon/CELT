@@ -41,10 +41,10 @@ end regDesp8;
 
 architecture Behavioral of regDesp8 is
 
-signal QS0 : STD_LOGIC_VECTOR (7 downto 0); -- señal que almacena el valor de Q0
-signal QS1 : STD_LOGIC_VECTOR (7 downto 0); -- señal que almacena el valor de Q1
-signal QS2 : STD_LOGIC_VECTOR (7 downto 0); -- señal que almacena el valor de Q2
-signal QS3 : STD_LOGIC_VECTOR (7 downto 0); -- señal que almacena el valor de Q3
+signal QS0 : STD_LOGIC_VECTOR (7 downto 0); -- seÃ±al que almacena el valor de Q0
+signal QS1 : STD_LOGIC_VECTOR (7 downto 0); -- seÃ±al que almacena el valor de Q1
+signal QS2 : STD_LOGIC_VECTOR (7 downto 0); -- seÃ±al que almacena el valor de Q2
+signal QS3 : STD_LOGIC_VECTOR (7 downto 0); -- seÃ±al que almacena el valor de Q3
 
 begin
 
@@ -58,7 +58,7 @@ begin
 		end if;  
 	end process;
 
-  Q0<=QS0;                              -- actualización de las salidas
+  Q0<=QS0;                              -- actualizaciÃ³n de las salidas
   Q1<=QS1;
   Q2<=QS2;
   Q3<=QS3;
