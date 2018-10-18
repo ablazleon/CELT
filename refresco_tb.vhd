@@ -75,5 +75,6 @@ BEGIN
 		CLK_1ms <= '1';
 		wait for CLK_1ms_period/2;
    end process;
+	
 
 END;

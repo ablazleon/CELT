@@ -40,8 +40,8 @@ end refresco;
 architecture Behavioral of refresco is
 
 signal contador: STD_LOGIC_VECTOR(1 downto 0):= "00";
-signal salida_s: STD_LOGIC_VECTOR(1 downto 0);
-signal salida_an: STD_LOGIC_VECTOR (3 downto 0);
+signal salida_s: STD_LOGIC_VECTOR(1 downto 0):= "00";
+signal salida_an: STD_LOGIC_VECTOR (3 downto 0):= "0000";
 
 
 begin
