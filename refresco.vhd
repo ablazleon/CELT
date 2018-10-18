@@ -47,19 +47,22 @@ signal salida_an: STD_LOGIC_VECTOR (3 downto 0);
 begin
 process (CLK_1ms)
 begin
+	-- Se observa que para que el refresco sea correcto con la Basys2, debe seguir la forma 
+-- especificada en la página 17 del manual de la Basys2.
+	
 if CLK_1ms'event and CLK_1ms = '1' then
 	contador <= contador + '1';
 	if contador = 0 then
-		salida_an <= "0001";
+		salida_an <= "0111";
 		salida_s <= "00";
 	elsif contador = 1 then
-		salida_an <= "0010";
+		salida_an <= "1011";
 		salida_s <= "01";
 	elsif contador = 2 then
-		salida_an <= "0100";
+		salida_an <= "1101";
 		salida_s <= "10";
 	else
-		salida_an <= "1000";
+		salida_an <= "1110";
 		salida_s <= "11";
 	end if;
 	
