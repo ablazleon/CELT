@@ -69,28 +69,36 @@ port ( CLK_1ms : in STD_LOGIC;
 		 Q3 : out STD_LOGIC_VECTOR (7 downto 0));
 end component
 
-compoen
+component div_reloj
+port ( CLK : in STD_LOGIC;
+		 CLK_1ms : out STD_LOGIC);
+end component
 
--- Se�ales para las salidas del registro de desplazamiento
+-- Señales para las salidas del registro de desplazamiento
 signal Reg_Q0 : STD_LOGIC_VECTOR (7 downto 0);
 signal Reg_Q1 : STD_LOGIC_VECTOR (7 downto 0);
 signal Reg_Q2 : STD_LOGIC_VECTOR (7 downto 0);
 signal Reg_Q3 : STD_LOGIC_VECTOR (7 downto 0);
 
--- se�al para la salida del multiplexor
+-- señal para la salida del multiplexor
 signal Mux_Q : STD_LOGIC_VECTOR (7 downto 0);
 
--- se�al para la salida del refresco
+-- señal para la salida del refresco
 signal Ref_controlador : STD_LOGIC_VECTOR (1 downto 0);
 signal Ref_salida : STD_LOGIC_Vector (3 downto 0);
 
--- se�al para la salida del decodificador
+-- señal para la salida del decodificador
 signal Dec_Q : STD_LOGIC_VECTOR (6 downto 0);
+
+-- señal para la salida del divisor
+signal Div_clk : STD_LOGIC;
+signal Div_clk1ms : STD_LOGIC;
 
 begin
 U1: decodmorsea7s
 		port map (
-						SIMBOLO => Mux_Q;
+						SIMBOLO => Mux_Q,
+						SEGMENTOS => Dec_Q
 						);
 					
 U2: MUX4x8
@@ -105,19 +113,23 @@ U2: MUX4x8
 						
 U3: rdesp_disp
 		port map (
-						Q0 => Reg_Q0
-						Q1 => Reg_Q1
-						Q2 => Reg_Q2
-						Q3 => Reg_Q3
+						Q0 => Reg_Q0,
+						Q1 => Reg_Q1,
+						Q2 => Reg_Q2,
+						Q3 => Reg_Q3,
+						CLK_1ms => Div_clk1ms
 						);
 						
 U4: refresco
 		port map (
-						CLK_1ms =>
-						S => Ref_controlador
+						CLK_1ms => Div_clk1ms,
+						S => Ref_controlador,
 						AN => Ref_salida
 						);
-U5: 
+U5: div_reloj
+		port map (
+						CLK => Div_clk,
+						CLK_1ms => Div_clk1ms
+						);
 
 end Behavioral;
-
