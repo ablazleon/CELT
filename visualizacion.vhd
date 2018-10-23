@@ -132,4 +132,4 @@ U5: div_reloj
 						CLK_1ms => Div_clk1ms
 						);
 
-end Behavioral;
+end Behavioral
