@@ -46,7 +46,7 @@ port ( E0: in STD_LOGIC_VECTOR (7 downto 0);
 		 E3: in STD_LOGIC_VECTOR (7 downto 0);
 		 S: in STD_LOGIC_VECTOR (1 downto 0);
 		 Y: out STD_LOGIC_VECTOR (7 downto 0));
-end component;
+end component
 
 component decodmorsea7s
 port ( SIMBOLO : in STD_LOGIC_VECTOR (7 downto 0);
