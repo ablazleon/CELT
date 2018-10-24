@@ -2,10 +2,10 @@
 -- Company: 
 -- Engineer:
 --
--- Create Date:   11:49:10 10/12/2018
+-- Create Date:   15:50:57 10/11/2018
 -- Design Name:   
--- Module Name:   C:/Users/hengx/Documents/curso18-19/CELT/xilinxWorkspace/regDes8/regDesp8_tb.vhd
--- Project Name:  regDes8
+-- Module Name:   C:/Users/ablaz/Documents/Celt/Practica/regDesp8_tb.vhd
+-- Project Name:  Practica
 -- Target Device:  
 -- Tool versions:  
 -- Description:   
@@ -89,15 +89,49 @@ BEGIN
    end process;
  
 
-   -- Stimulus process
+  -- Stimulus process
    stim_proc: process
    begin	
 		E <= "00000001";
-		EN <= '0';
-      -- hold reset state for 100 ns.
-      wait for 100 ns;
-		E <= "00000001";
 		EN <= '1';
+		
+      -- 1. Las salidas deben ser síncronas, es decir ir variando conforme cambie el reloj si En está activado
+		
+      wait for CLK_period;
+		E <= "00000010";
+		
+		wait for CLK_period;
+		E <= "00000100";
+		
+		wait for CLK_period;
+		E <= "00001000";
+		
+		wait for CLK_period;
+		E <= "00010000";
+		
+		wait for CLK_period;
+		E <= "00100000";
+		
+		wait for CLK_period;
+		E <= "01000000";
+		
+		wait for CLK_period;
+		E <= "10000000";
+		
+		-- 1. De forma que si se producen variaciones antes, no se reflejen.
+		
+		wait for CLK_period;
+		E <= "00000000";
+		
+		wait for CLK_period/2;
+		
+		E <= "11111111";
+		
+		-- 2. El enable es síncrono: si permanece activo, se ha comprobado que varía la señal de salida. Si es ianctivo, la señal debe permanecer.
+		
+		 wait for CLK_period;
+		E <= "00000001";
+		EN <= '0';
 		
       wait for CLK_period;
 		E <= "00000010";
@@ -122,5 +156,4 @@ BEGIN
 		
       wait;
    end process;
-
 END;
