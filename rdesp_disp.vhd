@@ -30,7 +30,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity rdesp_disp is
-    Port ( CLK : in   STD_LOGIC;                       -- entrada de reloj
+    Port ( CLK_1ms : in   STD_LOGIC;                       -- entrada de reloj
            E   : in   STD_LOGIC_VECTOR (7 downto 0);	 -- entrada de datos
 			  EN  : in   STD_LOGIC							; 	 -- entrada de enable
            Q0  : out  STD_LOGIC_VECTOR (7 downto 0);   -- salida Q0
@@ -41,16 +41,16 @@ end rdesp_disp;
 
 architecture Behavioral of rdesp_disp is
 
-signal QS0 : STD_LOGIC_VECTOR (7 downto 0):= "00000000"; -- señal que almacena el valor de Q0
-signal QS1 : STD_LOGIC_VECTOR (7 downto 0):= "00000000"; -- señal que almacena el valor de Q1
-signal QS2 : STD_LOGIC_VECTOR (7 downto 0):= "00000000"; -- señal que almacena el valor de Q2
-signal QS3 : STD_LOGIC_VECTOR (7 downto 0):= "00000000"; -- señal que almacena el valor de Q3
+signal QS0 : STD_LOGIC_VECTOR (7 downto 0):= "00000000"; -- seÃ±al que almacena el valor de Q0
+signal QS1 : STD_LOGIC_VECTOR (7 downto 0):= "00000000"; -- seÃ±al que almacena el valor de Q1
+signal QS2 : STD_LOGIC_VECTOR (7 downto 0):= "00000000"; -- seÃ±al que almacena el valor de Q2
+signal QS3 : STD_LOGIC_VECTOR (7 downto 0):= "00000000"; -- seÃ±al que almacena el valor de Q3
 
 begin
 
-	process (CLK)
+	process (CLK_1ms)
 	 begin
-		if (CLK'event and CLK='1' and EN='1') then   -- con cada flanco activo, si En está activado
+		if (CLK_1ms'event and CLK_1ms='1' and EN='1') then   -- con cada flanco activo, si En estÃ¡ activado
 		  QS3<=QS2;		           -- se desplazan todas las salidas 
 		  QS2<=QS1;                       
 		  QS1<=QS0;
@@ -58,12 +58,9 @@ begin
 		end if;  
 	end process;
 
-  Q0<=QS0;                              -- actualización de las salidas
+  Q0<=QS0;                              -- actualizaciÃ³n de las salidas
   Q1<=QS1;
   Q2<=QS2;
   Q3<=QS3;
 
 end Behavioral;
-
-
-
