@@ -80,23 +80,12 @@ signal Mux_Q : STD_LOGIC_VECTOR (7 downto 0);
 
 -- seÃ±al para la salida del refresco
 signal Ref_controlador : STD_LOGIC_VECTOR (1 downto 0);
-signal Ref_salida : STD_LOGIC_Vector (3 downto 0);
-
--- seÃ±al para la salida del decodificador
-signal Dec_Q : STD_LOGIC_VECTOR (0 to 6);
-
--- señal de reloj que conecta la entrada del modulo visualizacion con las entradas de reloj de refresco y el reg. de desplazamiento
-signal reloj_1ms : STD_LOGIC;
-
-signal reg_EN : STD_LOGIC;
-
-signal reg_input : STD_LOGIC_VECTOR (7 downto 0);
 
 begin
 U1: decodmorsea7s
 		port map (
 						SIMBOLO => Mux_Q,
-						SEGMENTOS => Dec_Q
+						SEGMENTOS => SEG7
 						);
 					
 U2: MUX4x8
@@ -115,16 +104,16 @@ U3: rdesp_disp
 						Q1 => Reg_Q1,
 						Q2 => Reg_Q2,
 						Q3 => Reg_Q3,
-						CLK_1ms => reloj_1ms,
-						EN => reg_EN,
-						E => reg_input
+						CLK_1ms => CLK_1ms,
+						EN => EN,
+						E => E0
 						);
 						
 U4: refresco
 		port map (
-						CLK_1ms => reloj_1ms,
+						CLK_1ms => CLK_1ms,
 						S => Ref_controlador,
-						AN => Ref_salida
+						AN => AN
 						);
 
 end Behavioral;
