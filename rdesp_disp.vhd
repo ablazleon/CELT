@@ -29,7 +29,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity regDesp8 is
+entity rdesp_disp is
     Port ( CLK : in   STD_LOGIC;                       -- entrada de reloj
            E   : in   STD_LOGIC_VECTOR (7 downto 0);	 -- entrada de datos
 			  EN  : in   STD_LOGIC							; 	 -- entrada de enable
@@ -37,9 +37,9 @@ entity regDesp8 is
            Q1  : out  STD_LOGIC_VECTOR (7 downto 0);   -- salida Q1
            Q2  : out  STD_LOGIC_VECTOR (7 downto 0);   -- salida Q2
            Q3  : out  STD_LOGIC_VECTOR (7 downto 0));  -- salida Q3
-end regDesp8;
+end rdesp_disp;
 
-architecture Behavioral of regDesp8 is
+architecture Behavioral of rdesp_disp is
 
 signal QS0 : STD_LOGIC_VECTOR (7 downto 0):= "00000000"; -- señal que almacena el valor de Q0
 signal QS1 : STD_LOGIC_VECTOR (7 downto 0):= "00000000"; -- señal que almacena el valor de Q1
