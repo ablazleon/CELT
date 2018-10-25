@@ -69,11 +69,6 @@ port ( CLK_1ms : in STD_LOGIC;
 		 Q3 : out STD_LOGIC_VECTOR (7 downto 0));
 end component
 
-component div_reloj
-port ( CLK : in STD_LOGIC;
-		 CLK_1ms : out STD_LOGIC);
-end component
-
 -- Señales para las salidas del registro de desplazamiento
 signal Reg_Q0 : STD_LOGIC_VECTOR (7 downto 0);
 signal Reg_Q1 : STD_LOGIC_VECTOR (7 downto 0);
@@ -89,10 +84,6 @@ signal Ref_salida : STD_LOGIC_Vector (3 downto 0);
 
 -- señal para la salida del decodificador
 signal Dec_Q : STD_LOGIC_VECTOR (6 downto 0);
-
--- señal para la salida del divisor
-signal Div_clk : STD_LOGIC;
-signal Div_clk1ms : STD_LOGIC;
 
 begin
 U1: decodmorsea7s
@@ -116,20 +107,13 @@ U3: rdesp_disp
 						Q0 => Reg_Q0,
 						Q1 => Reg_Q1,
 						Q2 => Reg_Q2,
-						Q3 => Reg_Q3,
-						CLK_1ms => Div_clk1ms
+						Q3 => Reg_Q3
 						);
 						
 U4: refresco
 		port map (
-						CLK_1ms => Div_clk1ms,
 						S => Ref_controlador,
 						AN => Ref_salida
-						);
-U5: div_reloj
-		port map (
-						CLK => Div_clk,
-						CLK_1ms => Div_clk1ms
 						);
 
 end Behavioral
