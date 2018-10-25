@@ -48,7 +48,7 @@ begin
 process (CLK_1ms)
 begin
 	-- Se observa que para que el refresco sea correcto con la Basys2, debe seguir la forma 
--- especificada en la página 17 del manual de la Basys2.
+-- especificada en la pÃ¡gina 17 del manual de la Basys2.
 	
 if CLK_1ms'event and CLK_1ms = '1' then
 	contador <= contador + '1';
@@ -73,4 +73,3 @@ AN <= salida_an;
 s <= salida_s;
 
 end Behavioral;
-
