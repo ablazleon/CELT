@@ -56,7 +56,7 @@ begin
 		begin
 			if (CLK_1ms'event and CLK_1ms='1') then
 				
-				-- codigo a desarrollar
+				-- codigo a desarrollar---------------------------------------
 				count := "00000000";
 				for i in 0 to 20 loop
 					if (reg_desp(i) = '1') then
@@ -64,13 +64,14 @@ begin
 					end if;
 				end loop;
 				suma <= std_logic_vector(count);
-				reg_desp(15 downto 1) <= reg_desp(14 downto 0);  
+				reg_desp(19 downto 1) <= reg_desp(18 downto 0);  
 				reg_desp(0) <= LIN;
-				if (suma > 15) then
+				if (suma > UMBRAL1) then
 					s_valor <= '1';
-				elsif (suma < 5) then
+				elsif (suma < UMBRAL0) then
 					s_valor <= '0';
 				end if;
+				-------------------------------------------------------------
 				
 			end if;
 	end process;
