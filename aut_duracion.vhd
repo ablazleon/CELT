@@ -32,8 +32,8 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity aut_duracion is
 
 	Port( CLK_1ms  : in STD_LOGIC;    -- reloj de 1ms
-			ENTRADA  : in STD_LOGIC;    -- línea de entrada de datos
-			VALID    : out STD_LOGIC;   -- salida de validación de dato
+			ENTRADA  : in STD_LOGIC;    -- lÃ­nea de entrada de datos
+			VALID    : out STD_LOGIC;   -- salida de validaciÃ³n de dato
 			DATO	   : out STD_LOGIC;	-- salida de dato ( 0 o 1)
 			DURACION : out STD_LOGIC_VECTOR (15 downto 0)); 
 			-- salida de duracion del dato
@@ -44,23 +44,36 @@ architecture a_aut_duracion of aut_duracion is
 
 type STATE_TYPE is (CERO, ALM_CERO, VALID_CERO, UNO, ALM_UNO, VALID_UNO, VALID_FIN);
 signal ST : STATE_TYPE := CERO;
-signal cont : STD_LOGIC_VECTOR (15 downto 0) := "000000000000000"
+signal cont : STD_LOGIC_VECTOR (15 downto 0) := "000000000000000";
+signal valid : STD_LOGIC := '0';
+signal dato : STD_LOGIC := '0';
 
 begin
 
-process (CLK_1ms) -- autómata de Moore: el estado depende de las entradas
+process (CLK_1ms) -- autÃ³mata de Moore: el estado depende de las entradas
  begin
  if (CLK_1ms'event and CLK_1ms='1') then
   case ST is
 		when CERO => 
+		
 			cont <= cont + 1;
+			valid <= 0;
+			dato <= 0;
+			
 			if ( ENTRADA = '0') then 
 				ST <= CERO;
-			if 
+				
+			if cont > 600 then
+				ST <= VALID_FIN;
+				
 			else
 				ST <= ALM_CERO;
 			end if;
-		when ALM_CERO
+			
+		when ALM_CERO =>
+		
+			reg <= cont;
+			cont <= '0';
 			if 
 		when VALID_CERO
 		when UNO
@@ -80,4 +93,3 @@ DATO <=  '1' when (ST = UNO or ALM_UNO or VALID_UNO) else '0'
 DURACION <= 
 
 end a_aut_duracion;
-
