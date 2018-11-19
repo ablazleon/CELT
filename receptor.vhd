@@ -103,7 +103,7 @@ signal valido : STD_LOGIC;
 signal datoAutomata : STD_LOGIC;
 signal duracionAuto : STD_LOGIC_VECTOR (15 downto 0);
 
--- Señales para el comparador de 16 bits (Como implementar dos comparadores?)
+-- Señales para el comparador de 16 bits
 signal s_C0 : STD_LOGIC;
 signal s_C1 : STD_LOGIC;
 
@@ -141,17 +141,17 @@ U4: aut_duracion
 				  DATO => datoAutomata,
 				  DURACION => duracionAuto);
 
--- Este es el comparador del ceros, falta el comparador de unos(ver el esquema pag 21)				  
+-- Este es el comparador del ceros		  
 U5: comp_16
 	Port map ( P => duracionAuto,
 				  Q => UMBRAL0, -- comparador de ceros
 				  P_GT_Q => s_C0);
 				  
--- Comparador de unos--------------------------------------------------
-
--- Codigo
-
------------------------------------------------------------------------
+-- Comparador de unos
+U6: comp_16
+	Port map ( P => duracionAuto,
+				  Q => UMBRAL1,
+				  P_GT_Q => s_C1);
 
 U6: aut_control
 	Port map ( CLK_1ms => STD_LOGIC,
