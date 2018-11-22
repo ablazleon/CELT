@@ -88,10 +88,6 @@ end component;
 
 -- SEÑALES NECESARIAS PARA LAS INTERCONEXIONES
 
--- Señales a la entrada del receptor
-signal reloj : STD_LOGIC;
-signal linDatos : STD_LOGIC;
-
 -- Señal del divisor de reloj
 signal reloj_1ms : STD_LOGIC;
 
@@ -111,30 +107,19 @@ signal s_C1 : STD_LOGIC;
 signal codigoAuto : STD_LOGIC_VECTOR (7 downto 0);
 signal validoDisplay : STD_LOGIC;
 
--- Señales para el modulo visualizacion
-signal segmento7 : STD_LOGIC_VECTOR (0 to 6);
-signal anVisual : STD_LOGIC_VECTOR (3 downto 0);
-
 begin
 
 -- Interconexiones de modulos
-
-U1: receptor
-	Port map ( CLK => reloj,
-				  LIN => linDatos,
-				  SEG7 => segmento7,
-				  AN => anVisual);
-
-U2: div_reloj
-	Port map ( CLK => reloj,
+U1: div_reloj
+	Port map ( CLK => CLK,
 				  CLK_1ms => reloj_1ms);
 
-U3: detector_flanco
+U2: detector_flanco
 	Port map ( CLK_1ms => reloj_1ms,
-				  LIN => linDatos,
+				  LIN => LIN,
 				  VALOR => valor_franco);
 				  
-U4: aut_duracion
+U3: aut_duracion
 	Port map ( CLK_1ms => reloj_1ms,
 				  ENTRADA => valor_franco,
 				  VALID => valido,
@@ -142,19 +127,19 @@ U4: aut_duracion
 				  DURACION => duracionAuto);
 
 -- Este es el comparador del ceros		  
-U5: comp_16
+U4: comp_16
 	Port map ( P => duracionAuto,
 				  Q => UMBRAL0, -- comparador de ceros
 				  P_GT_Q => s_C0);
 				  
 -- Comparador de unos
-U6: comp_16
+U5: comp_16
 	Port map ( P => duracionAuto,
 				  Q => UMBRAL1,
 				  P_GT_Q => s_C1);
 
 U6: aut_control
-	Port map ( CLK_1ms => STD_LOGIC,
+	Port map ( CLK_1ms => reloj_1ms,
 				  VALID => valido,
 				  DATO => datoAutomata,
 				  C0 => s_C0,
@@ -166,8 +151,8 @@ U7: visualizacion
 	Port map ( E0 => codigoAuto,
 				  EN => validoDisplay,
 				  CLK_1ms => reloj_1ms,
-				  SEG7 => segmento7,
-				  AN => anVisual);
+				  SEG7 => SEG7,
+				  AN => AN);
 
 end a_receptor;
 
