@@ -17,12 +17,11 @@ entity MUX4x8 is
            E3 : in   STD_LOGIC_VECTOR (7 downto 0);  -- entrada E3
            Y  : out  STD_LOGIC_VECTOR (7 downto 0);  -- salida Y
            S  : in   STD_LOGIC_VECTOR (1 downto 0)); -- entradas de control
-    
 end MUX4x8;
 
 architecture a_MUX4x8  of MUX4x8 is
 begin
-
+    
 Y <= E0 when S="00" else  -- se selecciona la salida en funcion de las entradas
      E1 when S="01" else  -- de control
      E2 when S="10" else
