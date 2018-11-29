@@ -1,41 +1,19 @@
 ----------------------------------------------------------------------------------
--- Company: UPM
--- Engineer: Hengxuan Y.
--- 
--- Create Date:    21:06:03 11/18/2018 
--- Design Name: 
--- Module Name:    receptor - Behavioral 
--- Project Name: 
--- Target Devices: 
--- Tool versions: 
--- Description: 
---
--- Dependencies: 
---
--- Revision: 
--- Revision 0.01 - File Created
--- Additional Comments: 
---
+-- RECEPTOR
+-- Integra todos los componentes de la parte digital del proyecto.
+-- Se encarga de procesar la senal morse recibida y mostrar por los 4 displays
+-- los mensajes descodificados.
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
-
--- Uncomment the following library declaration if instantiating
--- any Xilinx primitives in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
-
 entity receptor is
-	Port( CLK	: in STD_LOGIC; 								-- reloj de la FPGA
-			LIN	: in STD_LOGIC; 								-- Línea de entrada de datos
-			SEG7	: out STD_LOGIC_VECTOR (0 to 6);			-- Salida para los displays
-			AN 	: out STD_LOGIC_VECTOR (3 downto 0));	-- Activacion individual
+	Port( CLK : in STD_LOGIC; 			-- reloj de la FPGA
+	      LIN : in STD_LOGIC; 			-- LÃ­nea de entrada de datos
+	      SEG7: out STD_LOGIC_VECTOR (0 to 6);	-- Salida para los displays
+	      AN  : out STD_LOGIC_VECTOR (3 downto 0));	-- Activacion individual
 end receptor;
 
 architecture a_receptor of receptor is
@@ -49,14 +27,14 @@ component div_reloj
 end component;
 
 component detector_flanco
-	Port(CLK_1ms : in STD_LOGIC; 		-- reloj
-		  LIN		 : in STD_LOGIC; 		-- Línea de datos
-		  VALOR	 : out STD_LOGIC); 	-- Valor detectado en el flanco
+	Port(CLK_1ms : in STD_LOGIC; 		 -- reloj
+		  LIN		 : in STD_LOGIC; -- LÃ­nea de datos
+		  VALOR	 : out STD_LOGIC); 	 -- Valor detectado en el flanco
 end component;
 
 component aut_duracion
 	Port(CLK_1ms : in STD_LOGIC; 									-- reloj de 1 ms
-		  ENTRADA : in STD_LOGIC; 									-- línea de entrada de datos
+		  ENTRADA : in STD_LOGIC; 									-- lÃ­nea de entrada de datos
 		  VALID	 : out STD_LOGIC; 								-- salida de validacion de dato
 		  DATO	 : out STD_LOGIC; 								-- salida de dato (0 o 1)
 		  DURACION: out STD_LOGIC_VECTOR (15 downto 0));	-- salida de duracion del dato
@@ -79,31 +57,31 @@ component aut_control
 end component;
 
 component visualizacion
-	Port ( E0		: in STD_LOGIC_VECTOR (7 downto 0); -- Entrada siguiente caracter
+	Port ( E0		: in STD_LOGIC_VECTOR (7 downto 0);		-- Entrada siguiente caracter
 			 EN		: in STD_LOGIC;							-- Activacion para desplazamiento
 			 CLK_1ms	: in STD_LOGIC;							-- Entrada de reloj de refresco
 			 SEG7		: out STD_LOGIC_VECTOR(0 to 6);		-- Salida para los displays
-			 AN		: out STD_LOGIC_VECTOR(3 downto 0));-- Activacion individual
+			 AN		: out STD_LOGIC_VECTOR(3 downto 0));	-- Activacion individual
 end component;
 
--- SEÑALES NECESARIAS PARA LAS INTERCONEXIONES
+-- SEÃ‘ALES NECESARIAS PARA LAS INTERCONEXIONES
 
--- Señal del divisor de reloj
+-- SeÃ±al del divisor de reloj
 signal reloj_1ms : STD_LOGIC;
 
--- Señal del detector de franco
+-- SeÃ±al del detector de franco
 signal valor_franco : STD_LOGIC;
 
--- Señales para el automata de duracion
+-- SeÃ±ales para el automata de duracion
 signal valido : STD_LOGIC;
 signal datoAutomata : STD_LOGIC;
 signal duracionAuto : STD_LOGIC_VECTOR (15 downto 0);
 
--- Señales para el comparador de 16 bits
+-- SeÃ±ales para el comparador de 16 bits
 signal s_C0 : STD_LOGIC;
 signal s_C1 : STD_LOGIC;
 
--- Señales para el automata de control
+-- SeÃ±ales para el automata de control
 signal codigoAuto : STD_LOGIC_VECTOR (7 downto 0);
 signal validoDisplay : STD_LOGIC;
 
