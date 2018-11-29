@@ -1,45 +1,24 @@
 ----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
--- 
--- Create Date:    17:04:57 10/18/2018 
--- Design Name: 
--- Module Name:    visualizacion - Behavioral 
--- Project Name: 
--- Target Devices: 
--- Tool versions: 
--- Description: 
---
--- Dependencies: 
---
--- Revision: 
--- Revision 0.01 - File Created
--- Additional Comments: 
---
+-- VISUALIZACION
+-- Es necesario cablear todos los elementos anteriores en un solo módulo. Para ello 
+-- realizaremos un código VHDL con una descripción arquitectural de interconexión. 
+-- Deberán declararse todos los módulos anteriores como component y realizar 
+-- el cableado entre ellos.
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
-
--- Uncomment the following library declaration if instantiating
--- any Xilinx primitives in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
-
 entity visualizacion is
-    Port ( E0 : in  STD_LOGIC_VECTOR (7 downto 0);
-           EN : in  STD_LOGIC;
-           CLK_1ms : in  STD_LOGIC;
-           SEG7 : out  STD_LOGIC_VECTOR (0 to 6);
-           AN : out  STD_LOGIC_VECTOR (3 downto 0));
+    Port ( E0 : in  STD_LOGIC_VECTOR (7 downto 0);	-- 
+           EN : in  STD_LOGIC;				-- Enable del modulo
+           CLK_1ms : in  STD_LOGIC;			-- Reloj de 1 khz
+           SEG7 : out  STD_LOGIC_VECTOR (0 to 6);	-- Salida de los 7 segmentos
+           AN : out  STD_LOGIC_VECTOR (3 downto 0));    -- Salida que selecciona que display usar
 end visualizacion;
 
 architecture Behavioral of visualizacion is
 
-component MUX4x8
+component MUX4x8					-- Multiplexor de 4 entradas de 8 bits
 port ( E0: in STD_LOGIC_VECTOR (7 downto 0);
 		 E1: in STD_LOGIC_VECTOR (7 downto 0);
 		 E2: in STD_LOGIC_VECTOR (7 downto 0);
@@ -48,18 +27,18 @@ port ( E0: in STD_LOGIC_VECTOR (7 downto 0);
 		 Y: out STD_LOGIC_VECTOR (7 downto 0));
 end component;
 
-component decodmorsea7s
+component decodmorsea7s						-- Decodificador de 7 segmentos
 port ( SIMBOLO : in STD_LOGIC_VECTOR (7 downto 0);
 		 SEGMENTOS : out STD_LOGIC_VECTOR (0 to 6));
 end component;
 
-component refresco
+component refresco						-- Modulo Refresco
 port ( CLK_1ms : in STD_LOGIC;
 		 S : out STD_LOGIC_VECTOR (1 downto 0);
 		 AN : out STD_LOGIC_VECTOR (3 downto 0));
 end component;
 
-component rdesp_disp
+component rdesp_disp						-- Registro de desplazamiento
 port ( CLK_1ms : in STD_LOGIC;
 		 EN : in STD_LOGIC;
 		 E : in STD_LOGIC_VECTOR (7 downto 0);
@@ -69,19 +48,21 @@ port ( CLK_1ms : in STD_LOGIC;
 		 Q3 : out STD_LOGIC_VECTOR (7 downto 0));
 end component;
 
--- SeÃ±ales para las salidas del registro de desplazamiento
+-- Senales para las salidas del registro de desplazamiento
 signal Reg_Q0 : STD_LOGIC_VECTOR (7 downto 0);
 signal Reg_Q1 : STD_LOGIC_VECTOR (7 downto 0);
 signal Reg_Q2 : STD_LOGIC_VECTOR (7 downto 0);
 signal Reg_Q3 : STD_LOGIC_VECTOR (7 downto 0);
 
--- seÃ±al para la salida del multiplexor
+-- senal para la salida del multiplexor
 signal Mux_Q : STD_LOGIC_VECTOR (7 downto 0);
 
--- seÃ±al para la salida del refresco
+-- senal para la salida del refresco
 signal Ref_controlador : STD_LOGIC_VECTOR (1 downto 0);
 
 begin
+	
+-- Conexiones entre los componentes	
 U1: decodmorsea7s
 		port map (
 						SIMBOLO => Mux_Q,
