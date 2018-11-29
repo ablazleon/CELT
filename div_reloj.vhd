@@ -1,39 +1,17 @@
 ----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
--- 
--- Create Date:    15:50:49 09/09/2018 
--- Design Name: 
--- Module Name:    DIV_RELOJ - Behavioral 
--- Project Name: 
--- Target Devices: 
--- Tool versions: 
--- Description: 
---
--- Dependencies: 
---
--- Revision: 
--- Revision 0.01 - File Created
--- Additional Comments: 
---
+-- DIVISOR DE RELOJ
+-- Como toda la lógica interna del receptor estará sincronizada con un reloj de
+-- 1 KHz de frecuencia, es necesario desarrollar un divisor de frecuencia que obtenga
+-- un reloj de 1 KHz a partir del reloj de la FPGA (50 MHz).
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
-
--- Uncomment the following library declaration if instantiating
--- any Xilinx primitives in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
-
 entity DIV_RELOJ is
-    Port ( CLK : in  STD_LOGIC;   -- Entrada reloj de la FPGA 50 MHz
-           CLK_1ms : out  STD_LOGIC); -- salida reloj a 1kHz
+    Port ( CLK : in  STD_LOGIC;   	-- Entrada reloj de la FPGA 50 MHz
+           CLK_1ms : out  STD_LOGIC); 	-- salida reloj a 1kHz
 end DIV_RELOJ;
 
 architecture a_div_reloj of DIV_RELOJ is
