@@ -1,41 +1,29 @@
 ----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
--- 
--- Create Date:    17:56:26 10/25/2018 
--- Design Name: 
--- Module Name:    detector_franco - Behavioral 
--- Project Name: 
--- Target Devices: 
--- Tool versions: 
--- Description: 
---
--- Dependencies: 
---
--- Revision: 
--- Revision 0.01 - File Created
--- Additional Comments: 
---
+-- DETECTOR DE FLANCO
+-- El detector de flancos toma como entrada la línea de datos (LIN) y el reloj, 
+-- y genera una salida (VALOR) 0 o 1 dependiendo de si el flanco que llega es de
+-- bajada o de subida respectivamente. Para ello muestrea constantemente la señal 
+-- de entrada acumulando las muestras dentro de un registro de desplazamiento en 
+-- sincronía con el reloj de 1 KHz de modo que siempre haya 20 bits. Además calcula 
+-- constantemente la suma de los 20 bits que están dentro del registro. Si la suma 
+-- supera el umbral de 15 interpreta que llega un flanco de subida y la salida (VALOR)
+-- toma el valor 1, si la suma pasa por debajo del umbral de 5 interpreta que llega 
+-- un flanco de bajada y la salida (VALOR) toma el valor „0‟. En otro caso la salida 
+-- no cambia y mantiene su valor. Este detector se comporta como un autómata que implementa 
+-- un comparador con histéresis. El diagrama de estados correspondiente a este autómata, 
+-- así como la curva de histéresis se muestran en la Figura 22. Este procedimiento 
+-- permite ignorar los flancos correspondientes a glitches o los múltiples flancos en
+-- el caso de que aparezcan rebotes.
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
-
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
-
--- Uncomment the following library declaration if instantiating
--- any Xilinx primitives in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
-
 entity detector_flanco is
-    Port ( CLK_1ms : in  STD_LOGIC;
-           LIN : in  STD_LOGIC;
-           VALOR : out  STD_LOGIC);
+    Port ( CLK_1ms : in  STD_LOGIC;	-- reloj de 1khz
+           LIN : in  STD_LOGIC;		-- entrada de muestreo
+           VALOR : out  STD_LOGIC);	-- duracion de la entrada
 end detector_flanco;
 
 architecture Behavioral of detector_flanco is
@@ -76,6 +64,6 @@ begin
 				
 			end if;
 	end process;
-	VALOR<=s_valor;
+	VALOR<=s_valor; --Asignacion de la salida
 end Behavioral;
 
