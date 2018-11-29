@@ -21,8 +21,8 @@ end aut_control;
 
 architecture a_aut_control of aut_control is
 
-type STATE_TYPE is (ESPACIO, RESET, SIMBOLO, ESPERA); 	-- Los estados del autómata
-signal ST: STATE_TYPE := RESET;				-- Estado inicial del autómata
+type STATE_TYPE is (ESPACIO, RESET, SIMBOLO, ESPERA); 		-- Los estados del autómata
+signal ST: STATE_TYPE := RESET;					-- Estado inicial del autómata
 
 signal s_ncod : STD_LOGIC_VECTOR (2 downto 0):="000";
 signal s_cod  : STD_LOGIC_VECTOR (4 downto 0):="00000";
