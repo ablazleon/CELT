@@ -1,5 +1,9 @@
 ----------------------------------------------------------------------------------
--- 
+-- REFRESCO
+-- Este bloque controla la visualización sucesiva de cada carácter en cada display. 
+-- Para ello va alternando las entradas del multiplexor con la activación del display
+-- correspondiente. Como entrada toma la señal de reloj de 1 KHz y como salidas: 
+-- la entrada de selección del multiplexor y las entradas de activación de los displays.
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
