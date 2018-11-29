@@ -55,7 +55,7 @@ process (CLK_1ms)
 			when ESPACIO =>
 				ST<=RESET;
 			
-			
+			-- Estado RESET
 			when RESET =>
 				n <= 4;
 				s_ncod<="000";
@@ -65,7 +65,6 @@ process (CLK_1ms)
 				else
 					ST<=RESET;
 				end if;
-				
 		end case;
 	end if;
 end process;
