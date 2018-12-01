@@ -2,8 +2,7 @@
 -- MULTIPLEXOR DE 4 ENTRADAS DE 8 BITS
 -- un mux de 8 que varíe las cuatro entradas en el display, para representar 
 -- la rotación en el display, siguiendo la descripción de la entity que aparece en 
--- el enunciado. En el tb se comprueba que siendo las señales de entrada “0”, “1”, 
--- “2” y “3” en binario, dependiendo de s, se muestra una u otra.
+-- el enunciado.
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
