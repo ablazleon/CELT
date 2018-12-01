@@ -24,6 +24,9 @@
 -- that these types always be used for the top-level I/O of a design in order
 -- to guarantee that the testbench will bind correctly to the post-implementation 
 -- simulation model.
+----------------------------------------------------------------------------------
+-- TESTBENCH REGISTRO DE DESPLAZAMIENTO
+--
 --------------------------------------------------------------------------------
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
