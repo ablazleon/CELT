@@ -2,7 +2,8 @@
 -- AUTOMATA DE CONTROL
 -- Este autómata es el encargado de componer el código y validar su visualización 
 -- en el display cuando se recibe un ESPACIO. Su organización en estados responde 
--- al diagrama.
+-- al diagrama descrito en la página 33 del enunciado. La semántica del código 
+-- generado se describe en la página 23.
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
@@ -16,6 +17,7 @@ entity aut_control is
 		C0		: in STD_LOGIC; 			-- resultado comparador de ceros
 		C1		: in STD_LOGIC;				-- resultado comparador de unos
 		CODIGO		: out STD_LOGIC_VECTOR (7 downto 0); 	-- codigo morse obtenido
+	      								-- => ncod(número de símbolos)+scod(valor de punto o raya)
 		VALID_DISP	: out STD_LOGIC);			-- validacion del display
 end aut_control;
 
@@ -35,9 +37,9 @@ process (CLK_1ms)
 	if (CLK_1ms'event and CLK_1ms='1') then
 		case ST is
 			when SIMBOLO =>
-				s_ncod<=s_ncod+1;
+				s_ncod<=s_ncod+1;	-- cuenta del número de símbolos Morse
 				s_cod(n)<=C1;		-- el resultado del comparador indica punto o raya
-				n<=n-1;
+				n<=n-1;			-- se decrementa la asignación
 				ST<=ESPERA;
 			
 			--Estado ESPERA
