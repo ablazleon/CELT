@@ -10,13 +10,13 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity main is
 	Port ( CLK : in STD_LOGIC;
-			 BTN_START : in STD_LOGIC;
-			 BTN_STOP : in STD_LOGIC;
-			 SPI_CLK : out STD_LOGIC;
+			 BTN_START : in STD_LOGIC;    			-- Botón 0, pág 13 del enunciado
+			 BTN_STOP : in STD_LOGIC;			-- Botón 1
+			 SPI_CLK : out STD_LOGIC;			-- Configuración del DAC
 			 SPI_DIN : out STD_LOGIC;
 			 SPI_CS1 : out STD_LOGIC;
-			 LIN : in STD_LOGIC;
-			 AN : out STD_LOGIC_VECTOR (3 downto 0);
+			 LIN : in STD_LOGIC;				-- Tren de pulsos
+			 AN : out STD_LOGIC_VECTOR (3 downto 0);	
 			 SEG7 : out STD_LOGIC_VECTOR (0 to 6));
 end main;
 
