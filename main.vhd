@@ -1,7 +1,6 @@
 ----------------------------------------------------------------------------------
 -- MODULO MAIN
--- Integra el receptor y el generador de la senal morse para testear si el proyecto
--- completo funciona completamente.
+-- Integra el receptor y el generador de la senal morse 
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
